@@ -9,10 +9,13 @@ use common\models\GameComment;
 use common\models\GameVote;
 use common\models\Lineup;
 use common\models\UserRole;
+use Exception;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
 /**
@@ -50,7 +53,7 @@ class GameController extends AbstractController
     /**
      * @param int $id
      * @return string
-     * @throws \yii\web\NotFoundHttpException
+     * @throws NotFoundHttpException
      */
     public function actionPreview($id)
     {
@@ -81,19 +84,62 @@ class GameController extends AbstractController
             'sort' => false,
         ]);
 
+        $win = $draw = $loose = $score = $pass = 0;
+        foreach ($dataProvider->models as $model) {
+            /**
+             * @var Game $model
+             */
+            if (!$model->game_played) {
+                continue;
+            }
+
+            if ($game->game_home_team_id == $model->game_home_team_id && $game->game_home_national_id == $model->game_home_national_id) {
+                if ($model->game_home_score > $model->game_guest_score) {
+                    $win++;
+                }
+                if ($model->game_home_score == $model->game_guest_score) {
+                    $draw++;
+                }
+                if ($model->game_home_score < $model->game_guest_score) {
+                    $loose++;
+                }
+
+                $score = $score + $model->game_home_score;
+                $pass = $pass + $model->game_guest_score;
+            } else {
+                if ($model->game_guest_score > $model->game_home_score) {
+                    $win++;
+                }
+                if ($model->game_guest_score == $model->game_home_score) {
+                    $draw++;
+                }
+                if ($model->game_guest_score < $model->game_home_score) {
+                    $loose++;
+                }
+
+                $score = $score + $model->game_guest_score;
+                $pass = $pass + $model->game_home_score;
+            }
+        }
+
         $this->setSeoTitle('Матч');
 
         return $this->render('preview', [
             'dataProvider' => $dataProvider,
+            'draw' => $draw,
             'game' => $game,
+            'loose' => $loose,
+            'pass' => $pass,
+            'score' => $score,
+            'win' => $win,
         ]);
     }
 
     /**
      * @param int $id
-     * @return string|\yii\web\Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @return string|Response
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
@@ -202,8 +248,8 @@ class GameController extends AbstractController
      * @param int $id
      * @param int $gameId
      * @return Response
-     * @throws \yii\web\ForbiddenHttpException
-     * @throws \yii\web\NotFoundHttpException
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDeleteComment($id, $gameId)
     {
@@ -230,8 +276,8 @@ class GameController extends AbstractController
     /**
      * @param $id
      * @return Response
-     * @throws \Exception
-     * @throws \yii\web\NotFoundHttpException
+     * @throws Exception
+     * @throws NotFoundHttpException
      */
     public function actionVote($id)
     {
