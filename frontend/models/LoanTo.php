@@ -98,14 +98,6 @@ class LoanTo extends Model
             return false;
         }
 
-        if ($this->player->player_no_deal) {
-            Yii::$app->session->setFlash(
-                'error',
-                'Игрока нельзя отдать в аренду до конца сезона.'
-            );
-            return false;
-        }
-
         if ($this->player->player_loan_team_id) {
             Yii::$app->session->setFlash('error', 'Нельзя отдавать в аренду игроков, которые уже находятся в аренде.');
             return false;

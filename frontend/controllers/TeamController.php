@@ -1151,7 +1151,6 @@ class TeamController extends AbstractController
                             ['president-vice/application']
                         );
                 }
-
             } elseif (ElectionStatus::OPEN == $electionPresidentVice->election_president_vice_election_status_id) {
                 $electionPresidentVote = ElectionPresidentViceVote::find()
                     ->where([
@@ -1682,7 +1681,7 @@ class TeamController extends AbstractController
             if ($closestGame) {
                 if (($closestGame->game_home_national_id == $this->myNationalOrVice->national_id && !$closestGame->game_home_mood_id) ||
                     ($closestGame->game_guest_national_id == $this->myNationalOrVice->national_id && !$closestGame->game_guest_mood_id)) {
-                    $result[] = '<span class="font-red">Вы не отправили состав на ближайший матч сборной.</span> ' . Html::a(
+                    $result[] = '<span class="font-yellow">Вы не отправили состав на ближайший матч сборной.</span> ' . Html::a(
                             '<i class="fa fa-arrow-circle-right" aria-hidden="true"></i>',
                             ['lineup-national/view', 'id' => $closestGame->game_id]
                         );
